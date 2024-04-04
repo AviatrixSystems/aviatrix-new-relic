@@ -1,0 +1,20 @@
+integrations:
+  - name: nri-flex
+    interval: 5s
+    config:
+      name: AviatrixStatusUris
+      global:
+        base_url: <CO_PILOT_URL>
+        headers:
+          Authorization: Bearer <API_TOKEN>
+          accept: application/json
+      apis:
+        - name: AviatrixGatewayStatus
+          jq: ".gateways  | to_entries | map_values(.value + { id: .key })"
+          url: 'status-api/v1/?format=json'
+        - name: AviatrixTunnelStatus
+          jq: '.tunnels  | to_entries | map_values(.value + { id: .key }) |  .[] | .gw = (.id | split(".")[0])'
+          url: 'status-api/v1/?format=json'
+        - name: AviatrixBgpStatus
+          jq: ".bgp | to_entries | .[] | .key as $gw | .value | to_entries | map_values(.value + {connection: .key} + {gw: $gw})"
+          url: 'status-api/v1/?format=json'

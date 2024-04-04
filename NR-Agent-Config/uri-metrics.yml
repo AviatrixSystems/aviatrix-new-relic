@@ -1,0 +1,16 @@
+integrations:
+  - name: nri-flex
+    interval: 5s
+    config:
+      name: AviatrixMetricsUris
+      apis:
+        - name: AviatrixMetricsUri
+          split_array: true
+          leaf_array: true
+          commands:
+            - run: /home/ec2-user/get-uri-metrics.sh <CO_PILOT_URL> <API_TOKEN>
+        - name: AviatrixGWMetricsUri
+          split_array: true
+          leaf_array: true
+          commands:
+            - run: /home/ec2-user/get-uri-gw-metrics.sh <CO_PILOT_URL> <API_TOKEN>
