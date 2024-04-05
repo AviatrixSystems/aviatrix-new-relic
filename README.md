@@ -61,6 +61,13 @@ If there are no error messages then this should now be working.  Within a minute
 ```sql
 FROM AviatrixGatewayStatusSample SELECT status 
 ```
+
+### Securing Bearer Tokens and Urls
+
+There are a number of different ways to secure keys and other shared data within your New Relic environment.  It is important that you do this but there are different steps to follow depending on the approach that you are going to follow.  The latest approaches are documented [here](https://docs.newrelic.com/docs/infrastructure/host-integrations/installation/secrets-management/) and are quick and easy to follow.  
+
+You may however, be using the deprecated approach detailed [here](https://github.com/newrelic/nri-flex/blob/master/docs/deprecated/secrets.md) within your current New Relic setup.  In this case you can use the documented steps but this is a bit more effort and New Relic recommend that you move the new way.
+
 ## Configuring New Relic Lookup Tables
 
 In order to associate the data coming from the Aviatrix API with your account information you need to set up a lookup table with this information.  This is a manual step that currently needs to be updated when your gateways change.
