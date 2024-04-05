@@ -1,0 +1,623 @@
+{
+  "name": "Overview",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "Overview",
+      "description": null,
+      "widgets": [
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Hoodie Commerce LHR\n\n## [Application Status](https://onenr.io/0bRmEybvZRy)\n\n## [User Details](https://onenr.io/0OwvWklaNRv)\n\n## [Network Details](https://one.eu.newrelic.com/dashboards/detail/NDM5NDc2NXxWSVp8REFTSEJPQVJEfGRhOjM1NzAyMw?account=4394765&state=ff924801-1d9f-52ee-2d2d-f5810aa9bf0a)"
+          }
+        },
+        {
+          "title": "Hoodie LHR Status",
+          "layout": {
+            "column": 3,
+            "row": 1,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "1.50.0, Green"
+                },
+                {
+                  "color": "#f26507",
+                  "seriesName": "1.50.0, Amber"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT if(derivative(value, 10 seconds) < 0.1, 1, 0) AS Green, if(0.1 < derivative(value, 10 seconds), 1, 0) AS Amber WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' Facet agentVersion SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 1,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT derivative(value, 30 seconds) AS Errors WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 3,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Hoodie Commerce IAD\n\n## [Application Status](https://onenr.io/0BQ15xoDAQx)\n\n## [User Details](https://onenr.io/0nQxWeK7ajV)\n\n## [Network Details](https://onenr.io/0ERzWmJJZjr)"
+          }
+        },
+        {
+          "title": "Hoodie IAD Status",
+          "layout": {
+            "column": 3,
+            "row": 3,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "keepalive_fail"
+                },
+                {
+                  "color": "#ff0000",
+                  "seriesName": "down"
+                },
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "up"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM (FROM AviatrixGatewayStatusSample  Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = 'hoodie-n.virginia-account') ON id  SELECT latest(status) AS status FACET id) SELECT count(*) FACET status SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 3,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = 'hoodie-n.virginia-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = 'hoodie-n.virginia-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT derivative(value, 30 seconds) AS Errors WHERE statistic = 'COUNT' AND Account = 'hoodie-n.virginia-account' TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Hoodie Commerce SIN\n\n## [Application Status](https://onenr.io/0qQaPDYNpj1)\n\n## [User Details](https://onenr.io/0OwvWklaNRv)\n\n## [Network Details](https://one.eu.newrelic.com/dashboards/detail/NDM5NDc2NXxWSVp8REFTSEJPQVJEfGRhOjM1NzAyMw?account=4394765&state=ff924801-1d9f-52ee-2d2d-f5810aa9bf0a)"
+          }
+        },
+        {
+          "title": "Hoodie SIN Status",
+          "layout": {
+            "column": 3,
+            "row": 5,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "1.50.0, Green"
+                },
+                {
+                  "color": "#f26507",
+                  "seriesName": "1.50.0, Amber"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 1 AS Green, 0 AS Amber WHERE statistic = 'COUNT' Facet agentVersion SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 5,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 0 AS Errors WHERE statistic = 'COUNT' AND Account = 'hoodie-ireland-account' TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Hoodie Commerce SYD\n\n## [Application Status](https://onenr.io/0qQaPDYNpj1)\n\n## [User Details](https://onenr.io/0OwvWklaNRv)\n\n## [Network Details](https://one.eu.newrelic.com/dashboards/detail/NDM5NDc2NXxWSVp8REFTSEJPQVJEfGRhOjM1NzAyMw?account=4394765&state=ff924801-1d9f-52ee-2d2d-f5810aa9bf0a)"
+          }
+        },
+        {
+          "title": "Hoodie SYD Status",
+          "layout": {
+            "column": 3,
+            "row": 7,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "1.50.0, Green"
+                },
+                {
+                  "color": "#f26507",
+                  "seriesName": "1.50.0, Amber"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 1 AS Green, 0 AS Amber WHERE statistic = 'COUNT' Facet agentVersion SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 7,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 1 AS Errors WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 9,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "# Hoodie Commerce FRA\n\n## [Application Status](https://onenr.io/0qQaPDYNpj1)\n\n## [User Details](https://onenr.io/0OwvWklaNRv)\n\n## [Network Details](https://one.eu.newrelic.com/dashboards/detail/NDM5NDc2NXxWSVp8REFTSEJPQVJEfGRhOjM1NzAyMw?account=4394765&state=ff924801-1d9f-52ee-2d2d-f5810aa9bf0a)"
+          }
+        },
+        {
+          "title": "Hoodie FRA Status",
+          "layout": {
+            "column": 3,
+            "row": 9,
+            "width": 2,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "1.50.0, Green"
+                },
+                {
+                  "color": "#f26507",
+                  "seriesName": "1.50.0, Amber"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 1 AS Green, 0 AS Amber WHERE statistic = 'COUNT' Facet agentVersion SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 9,
+            "width": 4,
+            "height": 2
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = 'hoodie-london-account' TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT 1 AS Errors WHERE statistic = 'COUNT' AND Account = 'hoodie-ireland-account' TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variables": []
+}

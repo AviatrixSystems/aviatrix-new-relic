@@ -1,0 +1,649 @@
+{
+  "name": "Shared Full",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "Shared",
+      "description": null,
+      "widgets": [
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#1fff2e",
+                  "seriesName": "1.50.0, Green"
+                },
+                {
+                  "color": "#f26507",
+                  "seriesName": "1.50.0, Amber"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT if(derivative(value, 10 seconds) < 0.1, 1, 0) AS Green, if(0.1 < derivative(value, 10 seconds), 1, 0) AS Amber WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} Facet agentVersion SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Views, Orders, Errors",
+          "layout": {
+            "column": 5,
+            "row": 1,
+            "width": 8,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) AS 'User Activity' WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              },
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT derivative(value, 30 seconds) AS Errors WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 2,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM (FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status) FACET id) SELECT count(*) AS 'Tunnels UP' WHERE latest = 'up'"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "",
+          "layout": {
+            "column": 3,
+            "row": 4,
+            "width": 2,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM (FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status) FACET id) SELECT count(*) AS 'Tunnels DOWN' WHERE latest != 'up'"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Current Status",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 2,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM (FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(status) FACET id) SELECT count(*) AS 'Gateways UP' WHERE latest = 'up'"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Current Status",
+          "layout": {
+            "column": 7,
+            "row": 4,
+            "width": 2,
+            "height": 1
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM (FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(status) FACET id) SELECT count(*) AS 'Gateways DOWN' WHERE latest != 'up'"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway packet drops",
+          "layout": {
+            "column": 9,
+            "row": 4,
+            "width": 4,
+            "height": 4
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(rate_pkt_drop ) FACET id "
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Rates",
+          "layout": {
+            "column": 1,
+            "row": 5,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "hoodie-london-gw, Max Rate Pkt Drop"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT average(rate_received) FACET id TIMESERIES 30 seconds"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Error Count Rate of Change",
+          "layout": {
+            "column": 5,
+            "row": 5,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#fa0000",
+                  "seriesName": "Errors"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieFailedCountSample SELECT derivative(value, 30 seconds) AS Errors WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Gateway Cpu Status",
+          "layout": {
+            "column": 1,
+            "row": 8,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": true
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_us), max(cpu_ks) FACET agentName since 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Cpu Status",
+          "layout": {
+            "column": 7,
+            "row": 8,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": true
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_idle), max(cpu_wait) FACET agentName since 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Memory Status",
+          "layout": {
+            "column": 1,
+            "row": 11,
+            "width": 12,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": true
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(memory_available), latest(memory_buf), latest(memory_cached), latest(memory_free), latest(memory_swpd) FACET agentName SINCE 1 minute ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Tunnel Current Status",
+          "layout": {
+            "column": 1,
+            "row": 14,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status) FACET id"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Gateway Current Status",
+          "layout": {
+            "column": 5,
+            "row": 14,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(status) FACET id"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "BGP",
+          "layout": {
+            "column": 9,
+            "row": 14,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "dataFormatters": [
+              {
+                "name": "status",
+                "type": null
+              }
+            ],
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM AviatrixBgpStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status) FACET gw, connection"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "Orders",
+          "layout": {
+            "column": 1,
+            "row": 17,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieOrderCountSample SELECT derivative(value, 30 seconds) AS 'Order rate' WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "User Activity",
+          "layout": {
+            "column": 5,
+            "row": 17,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.area"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  4394765
+                ],
+                "query": "FROM HoodieTotalCountSample SELECT derivative(value, 30 seconds) WHERE statistic = 'COUNT' AND Account = {{AWS_Account}} TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "name": "AWS_Account",
+      "items": null,
+      "defaultValues": [
+        {
+          "value": {
+            "string": "hoodie-london-account"
+          }
+        }
+      ],
+      "nrqlQuery": {
+        "accountIds": [
+          4394765
+        ],
+        "query": "FROM lookup(Accounts) SELECT uniques(Account)"
+      },
+      "options": {
+        "ignoreTimeRange": true
+      },
+      "title": "Application",
+      "type": "NRQL",
+      "isMultiSelection": false,
+      "replacementStrategy": "STRING"
+    }
+  ]
+}

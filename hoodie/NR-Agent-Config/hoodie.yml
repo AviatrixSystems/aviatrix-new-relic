@@ -1,0 +1,26 @@
+integrations:
+  - name: nri-flex
+    interval: 5s
+    config:
+      name: linuxFileSystemIntegration
+      global:
+        base_url: <backend_main_uri> # remove /catalog/health
+        custom_attributes: # applies to all queries
+            Account: <AWS Account> # This should match the account name on /cloud-fabric/gateways/management
+      apis:
+        - name: HoodieFailedCount
+          timeout: 1000
+          url: /catalogue/actuator/metrics/http.server.requests?tag=uri:/checkout/%7BorderId%7D&tag=status:500
+          jq: .measurements
+        - name: HoodieTotalCount
+          timeout: 1000
+          jq: .measurements
+          url: /catalogue/actuator/metrics/http.server.requests
+          custom_attributes: # applies to all queries
+        - name: HoodieOrderCount
+          timeout: 1000
+          jq: .measurements
+          url: /catalogue/actuator/metrics/http.server.requests?tag=uri:/checkout/%7BorderId%7D&tag=status:201
+          custom_attributes: # applies to all queries
+
+
