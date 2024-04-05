@@ -1,0 +1,29 @@
+[
+  {
+    "id": "01234567-8901-2345-6789-012345678901",
+    "name": "Glitchy Hoodie",
+    "description": "Will you dare to try the glitch?",
+    "price": 100000,
+    "count": 9999,
+    "imageUrl1": "/images/glitch_front.png",
+    "imageUrl2": "/images/glitch_back.png",
+    "tags": [],
+    "sizes": [
+      {
+        "id": 1,
+        "name": "XS",
+        "label": "Extra Small"
+      },
+      {
+        "id": 7,
+        "name": "XXXL",
+        "label": "Extremely Large"
+      }
+    ],
+    "size": {
+      "id": 7,
+      "name": "XXXL",
+      "label": "Extremely Large"
+    }
+  }
+]

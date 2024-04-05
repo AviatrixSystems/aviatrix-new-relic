@@ -1,0 +1,38 @@
+[
+  {
+    "id": "03fef6ac-1896-4ce8-bd69-b798f85c6e0b",
+    "name": "Blue hoodie",
+    "description": "If you like blue clear skies as we rarely see here in Scotland, you will love this hoodie.",
+    "price": 99.99,
+    "count": 1,
+    "imageUrl1": "/images/blue_front.png",
+    "imageUrl2": "/images/blue_back.png",
+    "tags": [
+      {
+        "id": 3,
+        "name": "blue"
+      },
+      {
+        "id": 8,
+        "name": "black"
+      }
+    ],
+    "sizes": [
+      {
+        "id": 3,
+        "name": "M",
+        "label": "Medium"
+      },
+      {
+        "id": 8,
+        "name": "H",
+        "label": "Humongous"
+      }
+    ],
+    "size": {
+      "id": 3,
+      "name": "M",
+      "label": "Medium"
+    }
+  }
+]
