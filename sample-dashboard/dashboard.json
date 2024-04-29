@@ -26,7 +26,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(status) FACET id "
               }
@@ -58,7 +58,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT uniqueCount(status) FACET id ,status TIMESERIES 1 minute WHERE status ='up' "
               }
@@ -94,7 +94,7 @@
               "seriesOverrides": [
                 {
                   "color": "#ff0000",
-                  "seriesName": "hoodie-london-gw, Max Rate Pkt Drop"
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
                 }
               ]
             },
@@ -107,7 +107,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_received), max(rate_sent), max(rate_pkt_drop) FACET id TIMESERIES 30 seconds"
               }
@@ -143,7 +143,7 @@
               "seriesOverrides": [
                 {
                   "color": "#ff0000",
-                  "seriesName": "hoodie-london-gw, Max Rate Pkt Drop"
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
                 }
               ]
             },
@@ -156,7 +156,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(pps_limit_exceeded ) FACET id TIMESERIES 30 seconds"
               }
@@ -192,7 +192,7 @@
               "seriesOverrides": [
                 {
                   "color": "#ff0000",
-                  "seriesName": "hoodie-london-gw, Max Rate Pkt Drop"
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
                 }
               ]
             },
@@ -205,7 +205,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_rx_drop ) FACET id TIMESERIES 30 seconds"
               }
@@ -241,7 +241,7 @@
               "seriesOverrides": [
                 {
                   "color": "#ff0000",
-                  "seriesName": "hoodie-london-gw, Max Rate Pkt Drop"
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
                 }
               ]
             },
@@ -254,7 +254,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_tx_drop ) FACET id TIMESERIES 30 seconds"
               }
@@ -295,7 +295,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_idle)/100, max(cpu_ks), max(cpu_us), max(cpu_wait) TIMESERIES 1 minute "
               }
@@ -336,7 +336,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_idle), max(cpu_wait) FACET agentName since 1 minute ago"
               }
@@ -368,7 +368,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_us), max(cpu_ks) FACET agentName since 1 minute ago"
               }
@@ -400,7 +400,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(memory_available ), max(memory_buf), max(memory_cached), max(memory_free), max(memory_swpd) TIMESERIES 1 minute "
               }
@@ -432,7 +432,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(memory_available), latest(memory_buf), latest(memory_cached), latest(memory_free), latest(memory_swpd) FACET agentName   SINCE 1 minute ago"
               }
@@ -467,7 +467,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixBgpStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status)  FACET gw, connection "
               }
@@ -496,7 +496,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw  SELECT latest(status) FACET id "
               }
@@ -528,7 +528,7 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4394765
+                  4420798
                 ],
                 "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT uniqueCount(status) FACET id ,status TIMESERIES 1 minute WHERE status ='up' "
               }
@@ -557,13 +557,13 @@
       "defaultValues": [
         {
           "value": {
-            "string": "hoodie-london-account"
+            "string": "operations-aws"
           }
         }
       ],
       "nrqlQuery": {
         "accountIds": [
-          4394765
+          4420798
         ],
         "query": "FROM lookup(Accounts) SELECT uniques(Account)"
       },

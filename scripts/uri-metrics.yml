@@ -1,6 +1,5 @@
 integrations:
   - name: nri-flex
-    interval: 5s
     config:
       name: AviatrixMetricsUris
       apis:
@@ -8,9 +7,9 @@ integrations:
           split_array: true
           leaf_array: true
           commands:
-            - run: ./get-uri-metrics.sh <CO_PILOT_URL> <API_TOKEN>
+            - run: /etc/newrelic-infra/integrations.d/get-uri-metrics.sh $$CPLT_DOMAIN $$CPLT_API_KEY
         - name: AviatrixGWMetricsUri
           split_array: true
           leaf_array: true
           commands:
-            - run: ./get-uri-gw-metrics.sh <CO_PILOT_URL> <API_TOKEN>
+            - run: /etc/newrelic-infra/integrations.d/get-uri-gw-metrics.sh $$CPLT_DOMAIN $$CPLT_API_KEY
