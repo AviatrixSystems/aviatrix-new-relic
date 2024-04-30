@@ -4,7 +4,7 @@ This repo contains scripts and instructions for setting up an integration betwee
 
 ## Integration details
 
-The Aviatrix to New Relic integration uses [Flex](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) to pull metrics from the CoPilot API.  Flex uses the [New Relic Infrastructure Agent](https://docs.newrelic.com/docs/infrastructure/install-infrastructure-agent/get-started/install-infrastructure-agent/) to push the data to NR [jq](https://jqlang.github.io/jq/) is also required for the agent to parse the incoming json.
+The Aviatrix to New Relic integration uses [Flex](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) to pull metrics from the CoPilot API. Flex uses the [New Relic Infrastructure Agent](https://docs.newrelic.com/docs/infrastructure/install-infrastructure-agent/get-started/install-infrastructure-agent/) to push the data to NR. [jq](https://jqlang.github.io/jq/) is also required for the agent to parse the incoming json.
 
 This repository uses docker to bundle these 3 components to produce the suitable runtime environment.
 
@@ -20,7 +20,7 @@ The integration will populate the following tables in New Relic:
 
 ### Prerequisites
 
-#### Installing docker
+#### Docker
 
 In order to run this container you'll need docker installed.
 
@@ -28,9 +28,17 @@ In order to run this container you'll need docker installed.
 * [OS X](https://docs.docker.com/mac/started/)
 * [Linux](https://docs.docker.com/linux/started/)
 
-#### Configuring New Relic lookup tables
+#### Aviatrix Network Insights API key
 
-In order to associate the data coming from the Aviatrix API with your account information you need to set up a lookup table with this information.  This is a manual step that currently needs to be updated when your gateways change.
+Create an Aviatrix Network Insights api key by following the instructions for [Monitoring with Network Insights API](https://docs.aviatrix.com/documentation/latest/monitoring-troubleshooting/metrics-api-enable.html?expand=true)
+
+#### New Relic license key
+
+Create a New Relic license api key by following the instructions for [New Relic API keys](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/)
+
+#### New Relic lookup tables
+
+A lookup table with your account information needs to be set up to associate data coming from the Aviatrix API. This is a manual step that needs to be updated when your network topology changes.
 
 In Aviatrix CoPilot, navigate to `Cloud Fabric` -> `Gateways` -> `Gateway Management`. Download a csv file of this table using the download button next to `Actions`.
 
@@ -47,8 +55,8 @@ For production environments, expose the environment variables to the container i
 The following environment variables are required:
 
 * `CPLT_DOMAIN` - The domain name or IP of your Aviatrix CoPilot instance.
-* `CPLT_API_KEY` - The Aviatrix Network Insights API Key.
-* `NRI_FLEX_INTERVAL` - The execution interval for collecting metrics and delivering to your New Relic account.
+* `CPLT_API_KEY` - The Aviatrix Network Insights API key.
+* `NRIA_LICENSE_KEY` - The New Relic license api key.
 
 #### Relevant directory and file locations
 
