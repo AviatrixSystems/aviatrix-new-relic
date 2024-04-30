@@ -71,13 +71,21 @@ docker build --tag 'avx_new_relic' .
 ##### Run (interactive)
 
 ```bash
-docker run -e CPLT_API_KEY=$CPLT_API_KEY -e CPLT_DOMAIN=$CPLT_DOMAIN -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY avx_new_relic
+docker run \
+    -e CPLT_API_KEY=$CPLT_API_KEY \
+    -e CPLT_DOMAIN=$CPLT_DOMAIN \
+    -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
+    avx_new_relic
 ```
 
 ##### Run (detached)
 
 ```bash
-docker run -d -e CPLT_API_KEY=$CPLT_API_KEY -e CPLT_DOMAIN=$CPLT_DOMAIN -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY avx_new_relic
+docker run -d \
+    -e CPLT_API_KEY=$CPLT_API_KEY \
+    -e CPLT_DOMAIN=$CPLT_DOMAIN \
+    -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
+    avx_new_relic
 ```
 
 ## Securing bearer tokens and urls
@@ -98,5 +106,10 @@ Running your container interactively with the `NRIA_LOG_LEVEL` set to debug is a
 ### Run (interactive, verbose)
 
 ```bash
-docker run -e CPLT_API_KEY=$CPLT_API_KEY -e CPLT_DOMAIN=$CPLT_DOMAIN -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY -e NRIA_LOG_LEVEL=debug avx_new_relic
+docker run \
+    -e CPLT_API_KEY=$CPLT_API_KEY \
+    -e CPLT_DOMAIN=$CPLT_DOMAIN \
+    -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
+    -e NRIA_LOG_LEVEL=debug \
+    avx_new_relic
 ```
