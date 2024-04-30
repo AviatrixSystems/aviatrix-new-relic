@@ -4,7 +4,7 @@ This repo contains scripts and instructions for setting up an integration betwee
 
 ## Integration details
 
-The Aviatrix to n New Relic integration uses [Flex](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) to pull metrics from the CoPilot API.  Flex uses the [New Relic Infrastructure Agent](https://docs.newrelic.com/docs/infrastructure/install-infrastructure-agent/get-started/install-infrastructure-agent/) to push the data to NR [jq](https://jqlang.github.io/jq/) is also required for the agent to parse the incoming json.
+The Aviatrix to New Relic integration uses [Flex](https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) to pull metrics from the CoPilot API.  Flex uses the [New Relic Infrastructure Agent](https://docs.newrelic.com/docs/infrastructure/install-infrastructure-agent/get-started/install-infrastructure-agent/) to push the data to NR [jq](https://jqlang.github.io/jq/) is also required for the agent to parse the incoming json.
 
 This repository uses docker to bundle these 3 components to produce the suitable runtime environment.
 
