@@ -7,6 +7,6 @@ ENV NRIA_IS_FORWARD_ONLY true
 # install jq
 RUN apk add jq
 
-# add lcocal files
+# add local files
 ADD ./config/newrelic-infra.yml /etc/newrelic-infra.yml
 ADD ./scripts /etc/newrelic-infra/integrations.d/
