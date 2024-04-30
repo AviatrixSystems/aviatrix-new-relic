@@ -70,30 +70,24 @@ The following environment variables are required:
 
 #### Example execution
 
-##### Build
-
-```bash
-docker build --tag 'avx_new_relic' .
-```
-
-##### Run (interactive)
+##### Interactive
 
 ```bash
 docker run \
     -e CPLT_API_KEY=$CPLT_API_KEY \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
-    avx_new_relic
+    aviatrix/avx-new-relic:0.9.0
 ```
 
-##### Run (detached)
+##### Detached
 
 ```bash
 docker run -d \
     -e CPLT_API_KEY=$CPLT_API_KEY \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
-    avx_new_relic
+    aviatrix/avx-new-relic:0.9.0
 ```
 
 ## Securing bearer tokens and urls
@@ -119,5 +113,5 @@ docker run \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
     -e NRIA_LOG_LEVEL=debug \
-    avx_new_relic
+    aviatrix/avx-new-relic:0.9.0
 ```
