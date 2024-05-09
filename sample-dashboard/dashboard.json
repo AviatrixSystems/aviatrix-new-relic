@@ -1,6 +1,6 @@
 {
   "name": "Aviatrix Status Dashboard",
-  "description": null,
+  "description": "Sample Aviatrix Dashboard",
   "permissions": "PUBLIC_READ_WRITE",
   "pages": [
     {
@@ -8,7 +8,7 @@
       "description": null,
       "widgets": [
         {
-          "title": "Gateway Current Status",
+          "title": "Current Gateway Status",
           "layout": {
             "column": 1,
             "row": 1,
@@ -17,7 +17,7 @@
           },
           "linkedEntityGuids": null,
           "visualization": {
-            "id": "viz.billboard"
+            "id": "viz.table"
           },
           "rawConfiguration": {
             "facet": {
@@ -26,61 +26,20 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(status) FACET id "
+                "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT latest(status) FACET id "
               }
             ],
             "platformOptions": {
               "ignoreTimeRange": false
-            }
-          }
-        },
-        {
-          "title": "Gateway Status",
-          "layout": {
-            "column": 5,
-            "row": 1,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.line"
-          },
-          "rawConfiguration": {
-            "facet": {
-              "showOtherSeries": false
-            },
-            "legend": {
-              "enabled": true
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixGatewayStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT uniqueCount(status) FACET id ,status TIMESERIES 1 minute WHERE status ='up' "
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            },
-            "thresholds": {
-              "isLabelVisible": true
-            },
-            "yAxisLeft": {
-              "zero": false
-            },
-            "yAxisRight": {
-              "zero": true
             }
           }
         },
         {
           "title": "Gateway Rates",
           "layout": {
-            "column": 9,
+            "column": 5,
             "row": 1,
             "width": 4,
             "height": 3
@@ -107,9 +66,9 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_received), max(rate_sent), max(rate_pkt_drop) FACET id TIMESERIES 30 seconds"
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id ) ON id SELECT max(rate_received), max(rate_sent), max(rate_pkt_drop) FACET id TIMESERIES 30 seconds"
               }
             ],
             "platformOptions": {
@@ -127,108 +86,10 @@
           }
         },
         {
-          "title": "Bandwidth Ingress Limit Exceeded",
-          "layout": {
-            "column": 1,
-            "row": 4,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.line"
-          },
-          "rawConfiguration": {
-            "colors": {
-              "seriesOverrides": [
-                {
-                  "color": "#ff0000",
-                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
-                }
-              ]
-            },
-            "facet": {
-              "showOtherSeries": false
-            },
-            "legend": {
-              "enabled": true
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(pps_limit_exceeded ) FACET id TIMESERIES 30 seconds"
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            },
-            "thresholds": {
-              "isLabelVisible": true
-            },
-            "yAxisLeft": {
-              "zero": true
-            },
-            "yAxisRight": {
-              "zero": true
-            }
-          }
-        },
-        {
-          "title": "RX drop",
-          "layout": {
-            "column": 5,
-            "row": 4,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.line"
-          },
-          "rawConfiguration": {
-            "colors": {
-              "seriesOverrides": [
-                {
-                  "color": "#ff0000",
-                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
-                }
-              ]
-            },
-            "facet": {
-              "showOtherSeries": false
-            },
-            "legend": {
-              "enabled": true
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_rx_drop ) FACET id TIMESERIES 30 seconds"
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            },
-            "thresholds": {
-              "isLabelVisible": true
-            },
-            "yAxisLeft": {
-              "zero": true
-            },
-            "yAxisRight": {
-              "zero": true
-            }
-          }
-        },
-        {
-          "title": "TX drop",
+          "title": "Gateway Cpu Status",
           "layout": {
             "column": 9,
-            "row": 4,
+            "row": 1,
             "width": 4,
             "height": 3
           },
@@ -237,14 +98,6 @@
             "id": "viz.line"
           },
           "rawConfiguration": {
-            "colors": {
-              "seriesOverrides": [
-                {
-                  "color": "#ff0000",
-                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
-                }
-              ]
-            },
             "facet": {
               "showOtherSeries": false
             },
@@ -254,9 +107,9 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(rate_tx_drop ) FACET id TIMESERIES 30 seconds"
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id ) ON id SELECT max(cpu_us), max(cpu_ks) FACET id TIMESERIES 1 minute"
               }
             ],
             "platformOptions": {
@@ -277,7 +130,7 @@
           "title": "Gateway Cpu",
           "layout": {
             "column": 1,
-            "row": 7,
+            "row": 4,
             "width": 4,
             "height": 3
           },
@@ -295,9 +148,9 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_idle)/100, max(cpu_ks), max(cpu_us), max(cpu_wait) TIMESERIES 1 minute "
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT max(cpu_idle)/100, max(cpu_ks), max(cpu_us), max(cpu_wait) FACET id TIMESERIES 1 minute "
               }
             ],
             "platformOptions": {
@@ -315,30 +168,27 @@
           }
         },
         {
-          "title": "Gateway Cpu Status",
+          "title": "Gateway Cpu % In Use",
           "layout": {
             "column": 5,
-            "row": 7,
+            "row": 4,
             "width": 4,
             "height": 3
           },
           "linkedEntityGuids": null,
           "visualization": {
-            "id": "viz.pie"
+            "id": "viz.bar"
           },
           "rawConfiguration": {
             "facet": {
-              "showOtherSeries": true
-            },
-            "legend": {
-              "enabled": true
+              "showOtherSeries": false
             },
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_idle), max(cpu_wait) FACET agentName since 1 minute ago"
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT max(cpu_us) FACET id since 1 minute ago"
               }
             ],
             "platformOptions": {
@@ -347,30 +197,27 @@
           }
         },
         {
-          "title": "Gateway Cpu Status",
+          "title": "Current Tunnel Status",
           "layout": {
             "column": 9,
-            "row": 7,
+            "row": 4,
             "width": 4,
             "height": 3
           },
           "linkedEntityGuids": null,
           "visualization": {
-            "id": "viz.pie"
+            "id": "viz.table"
           },
           "rawConfiguration": {
             "facet": {
-              "showOtherSeries": true
-            },
-            "legend": {
-              "enabled": true
+              "showOtherSeries": false
             },
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(cpu_us), max(cpu_ks) FACET agentName since 1 minute ago"
+                "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw ) ON gw  SELECT latest(status) FACET id "
               }
             ],
             "platformOptions": {
@@ -382,7 +229,7 @@
           "title": "Gateway Memory",
           "layout": {
             "column": 1,
-            "row": 10,
+            "row": 7,
             "width": 4,
             "height": 3
           },
@@ -400,9 +247,9 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT max(memory_available ), max(memory_buf), max(memory_cached), max(memory_free), max(memory_swpd) TIMESERIES 1 minute "
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id ) ON id SELECT max(memory_available ), max(memory_buf), max(memory_cached), max(memory_free), max(memory_swpd) FACET id TIMESERIES 1 minute "
               }
             ],
             "platformOptions": {
@@ -414,103 +261,7 @@
           "title": "Gateway Memory Status",
           "layout": {
             "column": 5,
-            "row": 10,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.pie"
-          },
-          "rawConfiguration": {
-            "facet": {
-              "showOtherSeries": true
-            },
-            "legend": {
-              "enabled": true
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id WHERE Account = {{AWS_Account}}) ON id SELECT latest(memory_available), latest(memory_buf), latest(memory_cached), latest(memory_free), latest(memory_swpd) FACET agentName   SINCE 1 minute ago"
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            }
-          }
-        },
-        {
-          "title": "BGP",
-          "layout": {
-            "column": 9,
-            "row": 10,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.billboard"
-          },
-          "rawConfiguration": {
-            "dataFormatters": [
-              {
-                "name": "status",
-                "type": null
-              }
-            ],
-            "facet": {
-              "showOtherSeries": false
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixBgpStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT latest(status)  FACET gw, connection "
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            }
-          }
-        },
-        {
-          "title": "Tunnel Current Status",
-          "layout": {
-            "column": 1,
-            "row": 13,
-            "width": 4,
-            "height": 3
-          },
-          "linkedEntityGuids": null,
-          "visualization": {
-            "id": "viz.billboard"
-          },
-          "rawConfiguration": {
-            "facet": {
-              "showOtherSeries": false
-            },
-            "nrqlQueries": [
-              {
-                "accountIds": [
-                  4420798
-                ],
-                "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw  SELECT latest(status) FACET id "
-              }
-            ],
-            "platformOptions": {
-              "ignoreTimeRange": false
-            }
-          }
-        },
-        {
-          "title": "Tunnel Status",
-          "layout": {
-            "column": 5,
-            "row": 13,
+            "row": 7,
             "width": 4,
             "height": 3
           },
@@ -528,9 +279,185 @@
             "nrqlQueries": [
               {
                 "accountIds": [
-                  4420798
+                  1111111
                 ],
-                "query": "FROM AviatrixTunnelStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw WHERE Account = {{AWS_Account}}) ON gw SELECT uniqueCount(status) FACET id ,status TIMESERIES 1 minute WHERE status ='up' "
+                "query": "FROM AviatrixGWMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id ) ON id SELECT latest(memory_available), latest(memory_buf), latest(memory_cached), latest(memory_free), latest(memory_swpd) FACET id TIMESERIES 1 minute"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "Bandwidth Ingress Limit Exceeded",
+          "layout": {
+            "column": 9,
+            "row": 7,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  1111111
+                ],
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT max(pps_limit_exceeded ) FACET id TIMESERIES 30 seconds"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "BGP",
+          "layout": {
+            "column": 1,
+            "row": 10,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  1111111
+                ],
+                "query": "FROM AviatrixBgpStatusSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As gw) ON gw SELECT latest(status)  FACET gw, connection"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "RX drop",
+          "layout": {
+            "column": 5,
+            "row": 10,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  1111111
+                ],
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT max(rate_rx_drop ) FACET id TIMESERIES 30 seconds"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            },
+            "thresholds": {
+              "isLabelVisible": true
+            },
+            "yAxisLeft": {
+              "zero": true
+            },
+            "yAxisRight": {
+              "zero": true
+            }
+          }
+        },
+        {
+          "title": "TX drop",
+          "layout": {
+            "column": 9,
+            "row": 10,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "colors": {
+              "seriesOverrides": [
+                {
+                  "color": "#ff0000",
+                  "seriesName": "operations-aws-spoke-landing-zone, Max Rate Pkt Drop"
+                }
+              ]
+            },
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountIds": [
+                  1111111
+                ],
+                "query": "FROM AviatrixMetricsUriSample Inner JOIN (FROM lookup(Accounts) SELECT Account, Gateway As id) ON id SELECT max(rate_tx_drop ) FACET id TIMESERIES 30 seconds"
               }
             ],
             "platformOptions": {
@@ -550,30 +477,5 @@
       ]
     }
   ],
-  "variables": [
-    {
-      "name": "AWS_Account",
-      "items": null,
-      "defaultValues": [
-        {
-          "value": {
-            "string": "operations-aws"
-          }
-        }
-      ],
-      "nrqlQuery": {
-        "accountIds": [
-          4420798
-        ],
-        "query": "FROM lookup(Accounts) SELECT uniques(Account)"
-      },
-      "options": {
-        "ignoreTimeRange": true
-      },
-      "title": "Application",
-      "type": "NRQL",
-      "isMultiSelection": false,
-      "replacementStrategy": "STRING"
-    }
-  ]
+  "variables": []
 }
