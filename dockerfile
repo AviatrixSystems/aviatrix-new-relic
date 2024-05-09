@@ -1,4 +1,4 @@
-FROM newrelic/infrastructure:1.52.0
+FROM newrelic/infrastructure:1.52.1
 
 # disable the newrelic infrastructure agent from performing any additional monitoring
 # using forwarder mode will only make it responsible for executing integrations

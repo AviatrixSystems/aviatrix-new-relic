@@ -1,5 +1,6 @@
 integrations:
   - name: nri-flex
+    interval: 15s
     config:
       name: AviatrixMetricsUris
       apis:

@@ -66,7 +66,7 @@ The following environment variables are required:
 
 #### Built with
 
-* New Relic infrastructure agent v1.52.0
+* New Relic infrastructure agent v1.52.1
 
 #### Example execution
 
@@ -77,7 +77,7 @@ docker run \
     -e CPLT_API_KEY=$CPLT_API_KEY \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
-    aviatrix/avx-new-relic:0.9.0
+    aviatrix/avx-new-relic:1.0.0
 ```
 
 ##### Detached
@@ -87,7 +87,7 @@ docker run -d \
     -e CPLT_API_KEY=$CPLT_API_KEY \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
-    aviatrix/avx-new-relic:0.9.0
+    aviatrix/avx-new-relic:1.0.0
 ```
 
 ## Securing bearer tokens and urls
@@ -98,12 +98,13 @@ You may however, be using the deprecated approach detailed [here](https://github
 
 ## Importing the example dashboard
 
-The json file in [./sample-dashboard/dashboard.json](./sample-dashboard/dashboard.json) contains an example dashboard.  Modify the contents of this file, updating your `accountIds` and gateway names as applicable. Then, copy the contents to your clipboard and, in New Relic, go to `Dashboards` and click `Import Dashboard`.  Paste the json and click `Import Dashboard` again.
-You should now see the dashboard `Aviatrix Status Dashboard`.
+The json file in [./sample-dashboard/dashboard.json](./sample-dashboard/dashboard.json) contains an example dashboard.  Modify the contents of this file, updating the `accountIds` as applicable. Then, copy the contents to your clipboard and, in New Relic, go to `Dashboards` and click `Import Dashboard`.  Paste the json and click `Import Dashboard` again. You should now see the dashboard `Aviatrix Status Dashboard`.
+
+![dashboard](./images/screenshot.png)
 
 ## Troubleshooting the integration
 
-Running your container interactively with the `NRIA_LOG_LEVEL` set to debug is a great way to troubleshoot the flex scripts for issues with pulling metrics from the Aviatrix Network Insights API or posting the results to New Relic.
+Running your container interactively with the `NRIA_LOG_LEVEL` set to `trace` is a great way to troubleshoot the flex scripts for issues with pulling metrics from the Aviatrix Network Insights API or posting the results to New Relic.
 
 ### Run (interactive, verbose)
 
@@ -112,6 +113,6 @@ docker run \
     -e CPLT_API_KEY=$CPLT_API_KEY \
     -e CPLT_DOMAIN=$CPLT_DOMAIN \
     -e NRIA_LICENSE_KEY=$NRIA_LICENSE_KEY \
-    -e NRIA_LOG_LEVEL=debug \
-    aviatrix/avx-new-relic:0.9.0
+    -e NRIA_LOG_LEVEL=trace \
+    aviatrix/avx-new-relic:1.0.0
 ```
